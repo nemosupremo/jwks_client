@@ -82,7 +82,9 @@ impl<T: JwksSource + Send + Sync + 'static> JwksClient<T> {
                 Validation::default()
             };
 
-            if !audience.is_empty() {
+            if audience.is_empty() {
+                validation.validate_aud = false;
+            } else {
                 validation.set_audience(audience);
             }
 
